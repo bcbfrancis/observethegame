@@ -161,4 +161,3 @@ while True:
 * **Mehrfach-Weltdateien** → CLI-Flag `--world file.json`.
 * **Farbausgabe** (mit `colorama`) für Beschreibungen vs. Aktionen.
 
-```

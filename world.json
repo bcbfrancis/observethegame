@@ -1,0 +1,256 @@
+{
+    "scenes": {
+        "elevator_start": {
+            "title": "The Elevator",
+            "description": "You stand in a dented service-elevator. The floor indicator is dead. Four unlabeled buttons glow faintly: B1, B2, B3, B4. A key-slot marked EXIT is dark.",
+            "actions": {
+                "look": "Dust spirals in the flickering light. Buttons B1–B4 respond to your touch. The EXIT slot is empty.",
+                "press b1": {
+                    "text": "The elevator groans downward…",
+                    "next": "freezer"
+                },
+                "press b2": {
+                    "text": "The elevator jolts and descends…",
+                    "next": "boilerroom"
+                },
+                "press b3": {
+                    "text": "The elevator sinks into darker levels…",
+                    "next": "mirror_room"
+                },
+                "press b4": {
+                    "text": "The cab judders to a halt beside a corroded corridor…",
+                    "next": "library_locked"
+                },
+                "insert keycard": {
+                    "requires": "exit_keycard",
+                    "text": "The EXIT slot flares green.",
+                    "gives": "activated_exit",
+                    "once": true
+                },
+                "press exit": {
+                    "requires": "activated_exit",
+                    "text": "The car lurches up—toward freedom.",
+                    "next": "ending_good_escape"
+                },
+                "wait": "Somewhere above, cables creak like distant screams."
+            }
+        },
+        "freezer": {
+            "title": "B1 – Freezer",
+            "description": "A wave of sub-zero fog engulfs you. An ice-shrouded figure stands in the center. A small lighter is frozen to the floor.",
+            "items": {
+                "lighter": {
+                    "look": "A disposable lighter—if only you could pry it free.",
+                    "take": {
+                        "requires": "look lighter",
+                        "text": "Your fingers ache, but you snap the lighter loose."
+                    }
+                },
+                "ice_figure": {
+                    "look": "A human shape locked in cloudy ice. A blank plastic mask sits over its face.",
+                    "use": {
+                        "requires": "lighter",
+                        "text": "You melt the ice enough to pull away the mask. The freezer lights buzz angrily.",
+                        "gives": "mask",
+                        "remove": true,
+                        "replace": {
+                            "melted_ice": {
+                                "look": "Only puddles and shards of ice remain where the figure once stood."
+                            }
+                        }
+                    }
+                }
+            },
+            "actions": {
+                "look": "Frost crackles underfoot. Your breath clouds instantly.",
+                "go back": {
+                    "text": "You retreat to the elevator.",
+                    "next": "elevator_start"
+                }
+            }
+        },
+        "boilerroom": {
+            "title": "B2 – Boiler Room",
+            "description": "Scalding steam hisses from a cracked pipe. The air stinks of gas. A heavy wrench is wedged behind a vent.",
+            "items": {
+                "wrench": {
+                    "look": "A solid pipe-wrench—perfect for leverage.",
+                    "take": {
+                        "requires": "look wrench",
+                        "text": "With effort, you wrestle the wrench free."
+                    }
+                },
+                "gas_leak": {
+                    "look": "A shimmering haze escapes the pipe. Highly flammable.",
+                    "use": {
+                        "requires": "lighter",
+                        "text": "You flick the lighter—the room erupts in flame.",
+                        "next": "ending_bad_fire"
+                    }
+                },
+                "pipe": {
+                    "look": "The pipe’s thread rattles; a cap could be tightened.",
+                    "use": {
+                        "requires": "wrench",
+                        "text": "You crank the wrench—the leak seals with a shriek. Something clinks to the floor: a brass nameplate.",
+                        "gives": "nameplate",
+                        "remove": true,
+                        "replace": {
+                            "sealed_pipe": {
+                                "look": "The pipe is now firmly capped; no steam escapes."
+                            }
+                        }
+                    }
+                }
+            },
+            "actions": {
+                "look": "Condensation drips like sweat. Machinery throbs behind the walls.",
+                "go back": {
+                    "text": "You escape into the elevator zone.",
+                    "next": "elevator_start"
+                }
+            }
+        },
+        "mirror_room": {
+            "title": "B3 – Mirror Room",
+            "description": "Every wall is a mirror, yet none reflect you. A suitcase stands in the center—padlocked.",
+            "items": {
+                "mirrors": {
+                    "look": "The glass shows the room—without you in it.",
+                    "use": {
+                        "requires": "mask",
+                        "text": "Mask on, your reflection appears and mouths one word: ‘EMPTY’. Then it vanishes.",
+                        "once": true
+                    }
+                },
+                "suitcase": {
+                    "look": "Black leather, scratched. The padlock reads: PROPERTY OF OBSERVE.",
+                    "use": {
+                        "requires": "crowbar",
+                        "text": "You snap the lock open—empty, except for a note that reads: ‘YOU WERE NEVER HERE.’",
+                        "once": true
+                    }
+                }
+            },
+            "actions": {
+                "look": "Cold fluorescent light hums overhead.",
+                "go back": {
+                    "text": "You hurry back to the elevator.",
+                    "next": "elevator_start"
+                }
+            }
+        },
+        "library_locked": {
+            "title": "B4 – Locked Hall",
+            "description": "A steel door blocks the passage. It’s bolted and rusted shut.",
+            "items": {
+                "door": {
+                    "look": "The hinges have all but fused.",
+                    "use": {
+                        "requires": "wrench",
+                        "text": "You hammer the bolts loose—the door groans open.",
+                        "next": "library",
+                        "once": true
+                    }
+                }
+            },
+            "actions": {
+                "look": "The corridor is claustrophobic, lined with sealed ducts.",
+                "go back": {
+                    "text": "You return to the elevator.",
+                    "next": "elevator_start"
+                }
+            }
+        },
+        "library": {
+            "title": "B5 – Library",
+            "description": "Stacks of books stretch into blackness. An iron grate hides a crowbar.",
+            "items": {
+                "book": {
+                    "look": "An unmarked tome lies open—something plastic bulges between the pages.",
+                    "read": {
+                        "text": "Invisible ink flares: ‘NAMELESS’. A plastic keycard slips out and lands in your hand.",
+                        "gives": "exit_keycard",
+                        "once": true
+                    },
+                    "take": {
+                        "requires": "look book",
+                        "text": "The page tears—revealing nothing beneath."
+                    }
+                },
+                "grate": {
+                    "look": "A ventilation grate bolted tight.",
+                    "use": {
+                        "requires": "lighter",
+                        "text": "Heat loosens the screws. You pry it off and grab the crowbar.",
+                        "gives": "crowbar",
+                        "remove": true,
+                        "replace": {
+                            "open_grate": {
+                                "look": "The grate now hangs loosely from a single screw."
+                            }
+                        }
+                    }
+                }
+            },
+            "actions": {
+                "look": "Dust motes drift like slow snow.",
+                "go back": {
+                    "text": "You find the elevator corridor again.",
+                    "next": "elevator_start"
+                }
+            }
+        },
+        "exit_room": {
+            "title": "B6 – Maintenance Shaft",
+            "description": "A narrow shaft ends at a sealed service hatch labelled ‘UP’.",
+            "items": {
+                "hatch": {
+                    "look": "Bolted. A pry-bar could wedge it open.",
+                    "use": {
+                        "requires": "crowbar",
+                        "text": "With a screech, the hatch pops—the elevator cab awaits beyond.",
+                        "next": "elevator_start",
+                        "once": true
+                    }
+                },
+                "dark_hole": {
+                    "look": "A fist-sized hole disappears into black machinery.",
+                    "use": {
+                        "text": "You reach inside. Something bites.",
+                        "next": "ending_bad_hand",
+                        "once": true
+                    }
+                }
+            },
+            "actions": {
+                "look": "The air smells of ozone and oil.",
+                "go back": {
+                    "text": "You retrace your steps to the elevator.",
+                    "next": "elevator_start"
+                }
+            }
+        },
+        "ending_good_escape": {
+            "title": "Ending – Escape",
+            "description": "The elevator doors open into cool night air and a forest of silent pines. You breathe—real air, at last.",
+            "actions": {
+                "wait": "Stars shift overhead. You are free."
+            }
+        },
+        "ending_bad_fire": {
+            "title": "Ending – Fire",
+            "description": "A white flash—then nothing. Flames erase every memory.",
+            "actions": {
+                "wait": "Ash settles where you once stood."
+            }
+        },
+        "ending_bad_hand": {
+            "title": "Ending – Maw",
+            "description": "Pain floods your arm. You can’t pull free. The darkness devours.",
+            "actions": {
+                "wait": "Silence follows the crunch."
+            }
+        }
+    }
+}
